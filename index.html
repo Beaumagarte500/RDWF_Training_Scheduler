@@ -6,6 +6,7 @@
         <title align="center">Alonzo</title>
 
 <style>
+	   <!-- CSS for Pop-Up Form. -->
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
 
@@ -79,6 +80,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 </style>	    
 	    
 <style>
+	   <!-- CSS for Headers. -->
 h1 {
   font-family: Helvetica, serif;
   font-size: 60px;  
@@ -98,6 +100,7 @@ h3 {
 </style>
 	    
 <style>
+	   <!-- CSS for Links. -->
 a {
     color: black;    
     text-decoration: none;
@@ -114,6 +117,7 @@ a:hover {
 </style>	    
 	    
 <style type="text/css">
+	   <!-- CSS for Table. -->
   table          {align:center; border:solid 3px black; border-collapse: collapse; width:800px;}
   table td       {align:center; border:inset 1px #000;}
   table th       {align:center; padding:5px; background-color:#d9d9d9; color:black; border:solid 1px black; border-collapse: collapse;} 
@@ -124,6 +128,7 @@ a:hover {
 </style>
         
 <style>
+	   <!-- CSS for Site Buttons. -->
 .button {
   background-color: #fce4d6;
   border: none;
@@ -256,75 +261,11 @@ a:hover {
       <button class="button button4" onclick="openForm()">IAD76</button>	   	    
       <button class="button button5" onclick="openForm()">Night Shift</button>	    
     </div>
-
-<?php
-$mail_sent = false;
-
-if(!empty($_POST) && $_POST["name2"] != ""){
-
-    $to = $_POST['department'];
-
-    $senderName     = $_POST['name'];
-    $senderEmail    = $_POST['email'];
-    $department     = $_POST['department'];
-    $subject        = "Visitor Message from Website"; 
-    $messageBody    = $senderName . ' ('.$senderEmail.') wrote in '.$department.': ' . $_POST['message'];
-
-    if($department == 'customer') { //if customer was selected
-    $to = 'customer@gmail.com';
-    }
-
-    else if($department == 'distribution') { //if distribution was selected
-    $to = 'distribution@email.com';
-    }
-
-    else if($department == 'press') { //if press was selected
-    $to = 'press@email.com';
-    }
-
-    else if($department == 'career') { //if career was selected
-    $to = 'career@email.com';
-    }
-
-    else if($department == 'other') { //if other was selected
-    $to = 'other@email.com';
-    }
- 
-    $header = "From: $senderName ($senderEmail)";
-
-    $send_contact = mail($to, $subject, $messageBody, $header);
-
-    if($send_contact){
-        $mail_sent = true;
-    }
-    else {
-        echo "ERROR";
-    }
- }
-?>
-
-    <form action="contact-form.php" id="contactForm" method="post" accept-charset="utf-8">
-        <input id="name" type="text" name="name" minlength="2" placeholder="Your Name&hellip;" required>
-        <input id="email" type="email" name="email" placeholder="Your Email&hellip;" required>
-        <input id="name2" type="text" name="name2" placeholder="Your Last Name&hellip;" required>
-        <select id="department" type="text" name="department">
-          <option value="customer" name="customer">I am a customer</option>
-          <option value="distribution" name="distribution">department in distribution</option>
-          <option value="press" name="press">I am with the press</option>
-          <option value="career" name="career">department in a career position</option>
-          <option value="other" name="other">Other</option>
-        </select>
-        <textarea name="message" placeholder="Your Message&hellip;" required></textarea>
-        <input type="submit" value="Send away!">
-    </form>
-      </div>
-    </div>
 <br>
 <br>
 <br>
 <br>
 <br>
-
     <script>
       function openForm() {
         document.getElementById("popupForm").style.display = "block";
