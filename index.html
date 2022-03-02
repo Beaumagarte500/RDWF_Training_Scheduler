@@ -175,7 +175,7 @@ a:hover {
         </div>
 
     <div class="openBtn">
-      <button class="button" onclick="openForm()">IAD16</button>
+      <button class="button" onclick="openForm1()">IAD16</button>
       <button class="button button2" onclick="openForm()">IAD56</button>
       <button class="button button3" onclick="openForm()">IAD57</button>
       <button class="button button4" onclick="openForm()">IAD76</button>	   	    
@@ -183,18 +183,12 @@ a:hover {
     </div>
 
 <?php
-// We use the name2 field as bait for spambots.  It's display is off,
-// so humans wouldn't know to enter anything into it.  Robots would, 
-//  so we ignore submissions with info in name2.
-
 $mail_sent = false;
 
 if(!empty($_POST) && $_POST["name2"] != ""){
 
- // receiving a submission
     $to = $_POST['department'];
 
-    // prep our data from the form info
     $senderName     = $_POST['name'];
     $senderEmail    = $_POST['email'];
     $department     = $_POST['department'];
@@ -220,14 +214,8 @@ if(!empty($_POST) && $_POST["name2"] != ""){
     else if($department == 'other') { //if other was selected
     $to = 'other@email.com';
     }
-
-    // From 
+ 
     $header = "From: $senderName <$senderEmail>";
-
-    // echo $to; // my testing purpose
-
-
-    // Send it!
 
     $send_contact = mail($to, $subject, $messageBody, $header);
 
@@ -237,11 +225,7 @@ if(!empty($_POST) && $_POST["name2"] != ""){
     else {
         echo "ERROR";
     }
-
-
-// end brace for if(!empty($_POST) && $_POST["name2"] != "")
  }
-
 ?>
 
     <form action="contact-form.php" id="contactForm" method="post" accept-charset="utf-8">
@@ -264,7 +248,17 @@ if(!empty($_POST) && $_POST["name2"] != ""){
 <br>
 <br>
 <br>
-<br>	    
+<br>
+
+    <script>
+      function openForm1() {
+        document.getElementById("popupForm").style.display = "block";
+      }
+      function closeForm1() {
+        document.getElementById("popupForm").style.display = "none";
+      }
+    </script>
+
 	<div align="center">	    
 		<small class="p-2">Alonzo is developed and maintained by <a href="https://phonetool.amazon.com/users/zsa" target="_blank" rel="noopener noreferrer">Zachary Sansom</a>. Please Slack or email me with comments, questions, or concerns.</small>
 	</div>
