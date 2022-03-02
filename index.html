@@ -253,9 +253,12 @@ a:hover {
       <div class="formPopup" id="popupForm">
         <form action="/action_page.php" class="formContainer">
           <h2>Please Log in</h2>
-          <label for="email">
-            <strong>E-mail</strong>
-          </label>
+    <label>Select Trainer</label>
+    <select name="select" size="1">
+        <option>No Preference</option>
+        <option>Aaron Maxwell</option>
+        <option>Ben Crutchley</option>	    
+    </select>
           <input type="text" id="email" placeholder="Your Email" name="email" required>
           <label for="psw">
             <strong>Password</strong>
