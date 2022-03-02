@@ -253,17 +253,19 @@ a:hover {
       <div class="formPopup" id="popupForm">
         <form action="/action_page.php" class="formContainer">
           <h2>Please Log in</h2>
+<br>
     <label>Select Trainer</label>
-    <select name="select" size="1">
+    <select name="select" size="2">
         <option>No Preference</option>
         <option>Aaron Maxwell</option>
         <option>Ben Crutchley</option>	    
     </select>
-          <input type="text" id="email" placeholder="Your Email" name="email" required>
-          <label for="psw">
-            <strong>Password</strong>
-          </label>
-          <input type="password" id="psw" placeholder="Your Password" name="psw" required>
+          <input type="text" id="email" placeholder="Your Alias" name="alias" required>
+     <label>Drill Type Needed</label>
+	<select name="select" size="2">
+        <option>Quaterly Refresher (2 Drills)</option>
+        <option>Initial Qualification (4 Drills)</option>   
+    </select>
           <button type="submit" class="btn">Log in</button>
           <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
         </form>
