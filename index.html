@@ -79,75 +79,7 @@ a:hover {
 .button2:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
-</style>
-	    
-<style>
-      * {
-        box-sizing: border-box;
-      }
-      .openBtn {
-        display: flex;
-        justify-content: left;
-      }
-      .openButton {
-        border: none;
-        border-radius: 5px;
-        background-color: #1c87c9;
-        color: white;
-        padding: 14px 20px;
-        cursor: pointer;
-        position: fixed;
-      }
-      .loginPopup {
-        position: relative;
-        text-align: center;
-        width: 100%;
-      }
-      .formPopup {
-        display: none;
-        position: fixed;
-        left: 45%;
-        top: 5%;
-        transform: translate(-50%, 5%);
-        border: 3px solid #999999;
-        z-index: 9;
-      }
-      .formContainer {
-        max-width: 300px;
-        padding: 20px;
-        background-color: #fff;
-      }
-      .formContainer input[type=text],
-      .formContainer input[type=password] {
-        width: 100%;
-        padding: 15px;
-        margin: 5px 0 20px 0;
-        border: none;
-        background: #eee;
-      }
-      .formContainer input[type=text]:focus,
-      .formContainer input[type=password]:focus {
-        background-color: #ddd;
-        outline: none;
-      }
-      .formContainer .btn {
-        padding: 12px 20px;
-        border: none;
-        background-color: #8ebf42;
-        color: #fff;
-        cursor: pointer;
-        width: 100%;
-        margin-bottom: 15px;
-        opacity: 0.8;
-      }
-      .formContainer .cancel {
-        background-color: #cc0000;
-      }
-      .formContainer .btn:hover,
-      .openButton:hover {
-        opacity: 1;
-      }
-    </style>	    
+</style>    
        
 <h1 align="center" style="border:black; border-width:5px; border-style:solid;">ALONZO</h1>
 <h2 align="center">IAD Central's RDWF Training Scheduling Tool</h2>
@@ -249,38 +181,85 @@ a:hover {
       <button class="button button4" onclick="openForm()">IAD76</button>	   	    
       <button class="button button5" onclick="openForm()">Night Shift</button>	    
     </div>
-    <div class="loginPopup">
-      <div class="formPopup" id="popupForm">
-        <form action="/action_page.php" class="formContainer">
-          <h2>Please Log in</h2>
-<br>
-    <label>Select Trainer</label>
-    <select name="select" size="2">
-        <option>No Preference</option>
-        <option>Aaron Maxwell</option>
-        <option>Ben Crutchley</option>	    
-    </select>
-          <input type="text" id="email" placeholder="Your Alias" name="alias" required>
-     <label>Drill Type Needed</label>
-	<select name="select" size="2">
-        <option>Quaterly Refresher (2 Drills)</option>
-        <option>Initial Qualification (4 Drills)</option>   
-    </select>
-          <button type="submit" class="btn">Log in</button>
-          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-        </form>
+
+<?php
+// We use the name2 field as bait for spambots.  It's display is off,
+// so humans wouldn't know to enter anything into it.  Robots would, 
+//  so we ignore submissions with info in name2.
+
+$mail_sent = false;
+
+if(!empty($_POST) && $_POST["name2"] != ""){
+
+ // receiving a submission
+    $to = $_POST['department'];
+
+    // prep our data from the form info
+    $senderName     = $_POST['name'];
+    $senderEmail    = $_POST['email'];
+    $department     = $_POST['department'];
+    $subject        = "Visitor Message from Website"; 
+    $messageBody    = $senderName . ' ('.$senderEmail.') wrote in '.$department.': ' . $_POST['message'];
+
+    if($department == 'customer') { //if customer was selected
+    $to = 'customer@gmail.com';
+    }
+
+    else if($department == 'distribution') { //if distribution was selected
+    $to = 'distribution@email.com';
+    }
+
+    else if($department == 'press') { //if press was selected
+    $to = 'press@email.com';
+    }
+
+    else if($department == 'career') { //if career was selected
+    $to = 'career@email.com';
+    }
+
+    else if($department == 'other') { //if other was selected
+    $to = 'other@email.com';
+    }
+
+    // From 
+    $header = "From: $senderName <$senderEmail>";
+
+    // echo $to; // my testing purpose
+
+
+    // Send it!
+
+    $send_contact = mail($to, $subject, $messageBody, $header);
+
+    if($send_contact){
+        $mail_sent = true;
+    }
+    else {
+        echo "ERROR";
+    }
+
+
+// end brace for if(!empty($_POST) && $_POST["name2"] != "")
+ }
+
+?>
+
+    <form action="contact-form.php" id="contactForm" method="post" accept-charset="utf-8">
+        <input id="name" type="text" name="name" minlength="2" placeholder="Your Name&hellip;" required>
+        <input id="email" type="email" name="email" placeholder="Your Email&hellip;" required>
+        <input id="name2" type="text" name="name2" placeholder="Your Last Name&hellip;" required>
+        <select id="department" type="text" name="department">
+          <option value="customer" name="customer">I am a customer</option>
+          <option value="distribution" name="distribution">department in distribution</option>
+          <option value="press" name="press">I am with the press</option>
+          <option value="career" name="career">department in a career position</option>
+          <option value="other" name="other">Other</option>
+        </select>
+        <textarea name="message" placeholder="Your Message&hellip;" required></textarea>
+        <input type="submit" value="Send away!">
+    </form>
       </div>
     </div>
-
-    <script>
-      function openForm() {
-        document.getElementById("popupForm").style.display = "block";
-      }
-      function closeForm() {
-        document.getElementById("popupForm").style.display = "none";
-      }
-    </script>
-
 <br>
 <br>
 <br>
